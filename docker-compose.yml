@@ -1,5 +1,6 @@
 version: '3'
 
+
 services:
   prometheus:
     image: prom/prometheus
@@ -23,16 +24,53 @@ services:
     volumes:
       - /var/lib/docker:/var/lib/docker
     logging:
-      driver: "json-file"
+      driver: loki
+      options:
+        loki-url: "http://192.168.137.1:3100/loki/api/v1/push"
 
   container2:
     build: ./container2
     ports:
       - "7000:7000"
       - "6001:6001"
+    volumes:
+      - /var/lib/docker:/var/lib/docker
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://192.168.137.1:3100/loki/api/v1/push"
 
   container3:
     build: ./container3
     ports:
       - "4000:4000"
       - "4001:4001"
+    volumes:
+      - /var/lib/docker:/var/lib/docker
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://192.168.137.1:3100/loki/api/v1/push"
+
+  loki:
+    image: grafana/loki:latest
+    volumes:
+      - ./loki-data:/loki
+    networks:
+      - loki
+    ports:
+      - "3100:3100"
+
+  promtail:
+    image: grafana/promtail:latest
+    volumes:
+      - "/var/log:/var/log"
+      - "/var/lib/docker/containers:/var/lib/docker/containers"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./promtail-config.yaml:/etc/promtail/config.yaml"
+    command: "-config.file=/etc/promtail/config.yaml"
+    networks:
+      - loki
+
+networks:
+  loki:
