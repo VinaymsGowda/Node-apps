@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+
+  container1:
+    build: ./container1
+    ports:
+      - "5000:5000"  # Replace 3001 with the port your first Node.js application listens on.
+      - "5001:5001"
+    volumes:
+      - /var/lib/docker:/var/lib/docker
+    logging:
+      driver: "json-file"
+
+  container2:
+    build: ./container2
+    ports:
+      - "7000:7000"
+      - "6001:6001"
+
+  container3:
+    build: ./container3
+    ports:
+      - "4000:4000"
+      - "4001:4001"
