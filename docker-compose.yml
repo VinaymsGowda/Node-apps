@@ -7,14 +7,26 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
+      - ./prometheus/tmp:/prometheus
+      - ./prometheus/config:/etc/prometheus
+    command: --config.file=/etc/prometheus/prometheus.yml
 
   grafana:
     image: grafana/grafana
     ports:
       - "3000:3000"
+    volumes:
+      - ./grafana/tmp:/var/lib/grafana
+      - ./grafana/grafana.ini:/etc/grafana/grafana.ini
+
+  alertmanager:
+    image: prom/alertmanager:v0.25.0
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./alert-manager/tmp:/data
+      - ./alert-manager/config:/config
+    command: --config.file=/config/alertmanager.yml --log.level=debug
 
   container1:
     build: ./container1
@@ -71,6 +83,8 @@ services:
     command: "-config.file=/etc/promtail/config.yaml"
     networks:
       - loki
+
+  
 
 networks:
   loki:
