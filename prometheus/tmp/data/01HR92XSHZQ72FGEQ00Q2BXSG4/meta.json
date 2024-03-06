@@ -1,0 +1,17 @@
+{
+	"ulid": "01HR92XSHZQ72FGEQ00Q2BXSG4",
+	"minTime": 1709640000761,
+	"maxTime": 1709647200000,
+	"stats": {
+		"numSamples": 4560,
+		"numSeries": 180,
+		"numChunks": 180
+	},
+	"compaction": {
+		"level": 1,
+		"sources": [
+			"01HR92XSHZQ72FGEQ00Q2BXSG4"
+		]
+	},
+	"version": 1
+}

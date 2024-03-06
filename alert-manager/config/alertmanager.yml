@@ -3,14 +3,11 @@ route:
   repeat_interval: 1m
 receivers:
   - name: 'tutorial-alert-manager'
-    telegram_configs:
-      - bot_token: tutorial_token
-        api_url: https://api.telegram.org
-        chat_id: -12345678
-        parse_mode: ''
     email_configs:
-      - to: 'tutorial.inbox@gmail.com'
-        from: 'tutorial.outbox@gmail.com'
+      - to: 'email@gmail.com'
+        from: 'email@gmail.com'
         smarthost: 'smtp.gmail.com:587'
-        auth_username: 'username'
-        auth_password: 'password'
+        auth_username: 'email@gmail.com'
+        auth_identity: 'email@gmail.com'
+        auth_password: 'app password'
+        send_resolved: true

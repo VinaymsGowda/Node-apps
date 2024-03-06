@@ -9,4 +9,4 @@ groups:
           severity: critical
         annotations:
           summary: "Server {{$labels.instance}} down"
-          description: "{instance } of job {{ $labels.job }} has been down for more than 1 minute."
+          description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 1 minute."

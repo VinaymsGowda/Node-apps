@@ -25,8 +25,9 @@ services:
       - "9093:9093"
     volumes:
       - ./alert-manager/tmp:/data
+      - ./alert-manager/config/alertmanager.yml:/etc/alertmanager/alertmanager.yml
       - ./alert-manager/config:/config
-    command: --config.file=/config/alertmanager.yml --log.level=debug
+    command: --config.file=/config/alertmanager.yml
 
   container1:
     build: ./container1
