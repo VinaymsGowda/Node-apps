@@ -4,10 +4,10 @@ route:
 receivers:
   - name: 'tutorial-alert-manager'
     email_configs:
-      - to: 'email@gmail.com'
-        from: 'email@gmail.com'
+      - to: 'test@gmail.com'
+        from: 'test@gmail.com'
         smarthost: 'smtp.gmail.com:587'
-        auth_username: 'email@gmail.com'
-        auth_identity: 'email@gmail.com'
+        auth_username: 'test@gmail.com'
+        auth_identity: 'test@gmail.com'
         auth_password: 'app password'
         send_resolved: true
